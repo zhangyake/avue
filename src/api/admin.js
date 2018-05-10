@@ -1,19 +1,14 @@
-import { userTableData, roleTableData } from '@/mock/admin'
-import { DIC } from '@/const/dic'
-export const getUserData = (page) => {
-    return new Promise((resolve, reject) => {
-        resolve({ data: userTableData });
-    })
-}
+import { userTableData, roleTableData } from '@/mock/admin';
+import { DIC } from '@/const/dic';
 
-export const getRoleData = (page) => {
-    return new Promise((resolve, reject) => {
-        resolve({ data: roleTableData });
-    })
-}
+export const getUserData = page => new Promise((resolve, reject) => {
+  resolve({ data: userTableData });
+});
 
-export const getDic = (type) => {
-    return new Promise((resolve, reject) => {
-        resolve({ data: DIC[type] });
-    })
-}
+export const getRoleData = page => new Promise((resolve, reject) => {
+  resolve({ data: roleTableData });
+});
+
+export const getDic = type => new Promise((resolve, reject) => {
+  resolve({ data: DIC[type] });
+});

@@ -27,7 +27,7 @@
                 </el-checkbox-group>
               </template>
               <template v-if="!column.type">
-                  <el-input v-model="form[column.prop]" :placeholder="'请输入'+column.label" :disabled="column.disabled"></el-input>  
+                  <el-input v-model="form[column.prop]" :placeholder="'请输入'+column.label" :disabled="column.disabled"></el-input>
               </template>
             </el-form-item>
           </el-col>
@@ -43,28 +43,29 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
+
 export default {
-  name: "from",
+  name: 'from',
   data() {
     return {
       form: {},
       formRules: {},
-      DIC: {}
+      DIC: {},
     };
   },
   created() {
-    //规则初始化
+    // 规则初始化
     this.rulesInit();
-    //初始化dic字典
+    // 初始化dic字典
     this.dicInit();
-    //初始化form表单
+    // 初始化form表单
     this.formInit();
   },
   watch: {
-    formOption: function(n, o) {
+    formOption(n, o) {
       this.rulesInit();
-    }
+    },
   },
   mounted() {},
   computed: {},
@@ -72,49 +73,49 @@ export default {
     formOption: {
       type: Object,
       required: true,
-      default: {}
+      default: {},
     },
     formSubmitText: {
       type: String,
-      default: "提交"
-    }
+      default: '提交',
+    },
   },
   methods: {
-    ...mapActions(["GetDic"]),
+    ...mapActions(['GetDic']),
     rulesInit() {
       this.formRules = {};
-      this.formOption.column.forEach(ele => {
+      this.formOption.column.forEach((ele) => {
         if (ele.rules) this.formRules[ele.prop] = ele.rules;
       });
     },
     dicInit() {
-      this.GetDic(this.formOption.dic).then(data => {
+      this.GetDic(this.formOption.dic).then((data) => {
         this.DIC = data;
       });
     },
     formInit() {
       const list = this.formOption.column;
-      let form = {};
-      list.forEach(ele => {
-        if (ele.type == "checkbox" || ele.type == "radio") {
+      const form = {};
+      list.forEach((ele) => {
+        if (ele.type == 'checkbox' || ele.type == 'radio') {
           form[ele.prop] = [];
         } else {
-          form[ele.prop] = "";
+          form[ele.prop] = '';
         }
       });
       this.form = Object.assign({}, form);
     },
     handleSubmit() {
-      this.$refs["form"].validate(valid => {
+      this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$emit("handleSubmit", this.form);
+          this.$emit('handleSubmit', this.form);
         } else {
-          this.$emit("handleSubmit");
+          this.$emit('handleSubmit');
         }
       });
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
 

@@ -1,9 +1,11 @@
 import {
-  baseUrl
+  baseUrl,
 } from '@/config/env'
+;
+
 const first = [{
   id: 14,
-  label: "数据展示",
+  label: '数据展示',
   href: '/exhibition/index',
   icon: 'icon-shujuzhanshi2',
   meta: {
@@ -12,112 +14,112 @@ const first = [{
   children: [],
 }, {
   id: 2,
-  label: "第三方网站",
+  label: '第三方网站',
   href: '',
   icon: 'icon-iframe',
   meta: {},
   children: [{
     id: 3,
-    label: "百度",
+    label: '百度',
     href: 'https://www.baidu.com',
     icon: 'icon-baidu1',
     children: [],
   }, {
     id: 4,
-    label: "搜狐",
+    label: '搜狐',
     href: 'http://www.shouhu.com',
     icon: 'icon-souhu',
     children: [],
   }, {
     id: 5,
-    label: "360",
+    label: '360',
     href: 'http://www.360.com',
     icon: 'icon-msnui-360',
     children: [],
 
-  }]
+  }],
 }, {
   id: 6,
-  label: "表格CRUD",
+  label: '表格CRUD',
   href: '/table/index',
   icon: 'icon-biaoge',
   meta: {},
-  children: []
+  children: [],
 }, {
   id: 9,
-  label: "表单CRUD",
+  label: '表单CRUD',
   href: '/form/index',
   icon: 'icon-biaodan',
   meta: {},
-  children: []
+  children: [],
 }, {
   id: 7,
-  label: "阿里图标",
+  label: '阿里图标',
   href: '/iconfont/index',
   icon: 'icon-changyonglogo27',
   meta: {},
-  children: []
+  children: [],
 }, {
   id: 9,
-  label: "系统管理",
+  label: '系统管理',
   icon: 'icon-liuliangyunpingtaitubiao08',
   meta: {},
   children: [
     {
       id: 10,
-      label: "用户管理",
+      label: '用户管理',
       href: '/admin/user',
       icon: 'icon-yonghuguanli',
-      children: []
+      children: [],
     }, {
       id: 11,
-      label: "角色管理",
+      label: '角色管理',
       href: '/admin/role',
       icon: 'icon-jiaoseguanli',
-      children: []
+      children: [],
     },
     {
       id: 12,
-      label: "菜单管理",
+      label: '菜单管理',
       href: '/admin/menu',
       icon: 'icon-caidanguanli',
-      children: []
-    }
-  ]
+      children: [],
+    },
+  ],
 }, {
   id: 8,
-  label: "综合错误",
+  label: '综合错误',
   href: '#',
   icon: 'icon-cuowu',
   meta: {},
   children: [
     {
       id: 14,
-      label: "错误日志",
+      label: '错误日志',
       href: '/errlog/index',
       icon: 'icon-rizhi',
-      children: []
+      children: [],
     }, {
       id: 15,
-      label: "错误页面",
+      label: '错误页面',
       href: '/errlog/page',
       icon: 'icon-cuowutishitubiao',
-      children: []
-    }
-  ]
-}
-]
+      children: [],
+    },
+  ],
+},
+];
 const second = [
   {
     id: 13,
-    label: "权限测试页",
+    label: '权限测试页',
     href: '/role/index',
     icon: 'icon-quanxian',
     meta: {
       roles: ['admin'],
     },
     children: [],
-  }
-]
+  },
+];
 export const menu = [first, second];
 

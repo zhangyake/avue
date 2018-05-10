@@ -21,40 +21,41 @@
             <el-button type="warning" v-if="permission.sys_role_btn5">警告按钮</el-button>
             <el-button type="danger" v-if="permission.sys_role_btn6">危险按钮</el-button>
     </el-card>
-         
+
 	</div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
+
 export default {
-  name: "role",
+  name: 'role',
   data() {
     return {
-      roleSwitch: ""
+      roleSwitch: '',
     };
   },
   created() {
     this.roleSwitch = this.roles[0];
   },
   computed: {
-    ...mapGetters(["roles", "permission"])
+    ...mapGetters(['roles', 'permission']),
   },
   methods: {
     handlechange(val) {
-      this.$store.commit("SET_ROLES", [val]);
-      if (val == "user") {
-        this.$store.commit("SET_PERMISSION", [
-          "sys_role_btn1",
-          "sys_role_btn2"
+      this.$store.commit('SET_ROLES', [val]);
+      if (val == 'user') {
+        this.$store.commit('SET_PERMISSION', [
+          'sys_role_btn1',
+          'sys_role_btn2',
         ]);
-      } else if (val == "admin") {
-        this.$store.dispatch("GetUserInfo");
+      } else if (val == 'admin') {
+        this.$store.dispatch('GetUserInfo');
       }
 
-      this.$store.dispatch("GetMenu");
-    }
-  }
+      this.$store.dispatch('GetMenu');
+    },
+  },
 };
 </script>
 

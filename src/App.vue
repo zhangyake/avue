@@ -6,16 +6,16 @@
 
 <script>
 export default {
-  name: "app",
+  name: 'app',
   data() {
     return {
-      
+
     };
   },
   watch: {},
   created() {},
   methods: {},
-  computed: {}
+  computed: {},
 };
 </script>
 <style lang="scss">

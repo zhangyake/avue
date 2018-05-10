@@ -83,10 +83,11 @@
   </div>
 </template>
 <script>
-import { findByvalue } from "@/util/util";
-import { mapActions } from "vuex";
+import { findByvalue } from '@/util/util';
+import { mapActions } from 'vuex';
+
 export default {
-  name: "crud",
+  name: 'crud',
   data() {
     return {
       boxVisible: false,
@@ -95,19 +96,19 @@ export default {
       tableForm: {},
       tableFormRules: {},
       tableIndex: -1,
-      tableSelect: []
+      tableSelect: [],
     };
   },
   created() {
-    //规则初始化
+    // 规则初始化
     this.rulesInit();
-    //初始化字典
+    // 初始化字典
     this.dicInit();
   },
   wathch: {
-    tableOption: function(n, o) {
+    tableOption(n, o) {
       this.rulesInit();
-    }
+    },
   },
   mounted() {},
   props: {
@@ -117,63 +118,63 @@ export default {
       type: Object,
       default() {
         return {
-          total: 0, //总页数
-          currentPage: 0, //当前页数
-          pageSize: 10, //每页显示多少条
-          background: true //背景颜色
+          total: 0, // 总页数
+          currentPage: 0, // 当前页数
+          pageSize: 10, // 每页显示多少条
+          background: true, // 背景颜色
         };
-      }
+      },
     },
     tableLoading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     menu: {
       type: Boolean,
-      default: true
+      default: true,
     },
     width: {
-      type: String
+      type: String,
     },
     tableData: {
       type: Array,
       required: true,
-      default: []
+      default: [],
     },
     tableOption: {
       type: Object,
       required: true,
-      default: {}
-    }
+      default: {},
+    },
   },
   methods: {
-    ...mapActions(["GetDic"]),
+    ...mapActions(['GetDic']),
     rulesInit() {
       this.tableFormRules = {};
-      this.tableOption.column.forEach(ele => {
+      this.tableOption.column.forEach((ele) => {
         if (ele.rules) this.tableFormRules[ele.prop] = ele.rules;
       });
     },
     dicInit() {
-      this.GetDic(this.tableOption.dic).then(data => {
+      this.GetDic(this.tableOption.dic).then((data) => {
         this.DIC = data;
       });
     },
     formInit() {
       const list = this.tableOption.column;
-      let from = {};
-      list.forEach(ele => {
-        if (ele.type == "checkbox" || ele.type == "radio") {
+      const from = {};
+      list.forEach((ele) => {
+        if (ele.type == 'checkbox' || ele.type == 'radio') {
           from[ele.prop] = [];
         } else {
-          from[ele.prop] = "";
+          from[ele.prop] = '';
         }
       });
       this.tableForm = Object.assign({}, from);
     },
-    //页码回掉
+    // 页码回掉
     handleCurrentChange(val) {
-      this.$emit("handleCurrentChange", val);
+      this.$emit('handleCurrentChange', val);
     },
     findByvalue(dic, val) {
       return findByvalue(dic, val);
@@ -181,21 +182,21 @@ export default {
     // 选中实例
     toggleSelection(rows) {
       if (rows) {
-        rows.forEach(row => {
+        rows.forEach((row) => {
           this.$refs.table.toggleRowSelection(row);
         });
       } else {
         this.$refs.table.clearSelection();
       }
     },
-    //选择回调
+    // 选择回调
     handleSelectionChange(val) {
       this.tableSelect = val;
-      this.$emit("handleSelectionChange", val);
+      this.$emit('handleSelectionChange', val);
     },
-    //处理数据
+    // 处理数据
     handleDetail(row, column) {
-      let result = "";
+      let result = '';
       if (column.dataDetail) {
         if (column.type) {
           result = findByvalue(this.DIC[column.dicData], row[column.prop]);
@@ -203,21 +204,19 @@ export default {
           result = row[column.prop];
         }
         result = column.dataDetail(row);
+      } else if (column.type) {
+        result = findByvalue(this.DIC[column.dicData], row[column.prop]);
       } else {
-        if (column.type) {
-          result = findByvalue(this.DIC[column.dicData], row[column.prop]);
-        } else {
-          result = row[column.prop];
-        }
+        result = row[column.prop];
       }
       return result;
     },
     // 新增
     handleAdd() {
-      //form表单初始化
+      // form表单初始化
       this.formInit();
       this.boxType = 0;
-      if (typeof this.beforeClose === "function") this.beforeOpen(this.show);
+      if (typeof this.beforeClose === 'function') this.beforeOpen(this.show);
       else this.show();
     },
     // 编辑
@@ -225,51 +224,51 @@ export default {
       this.tableForm = Object.assign({}, row);
       this.tableIndex = index;
       this.boxType = 1;
-      if (typeof this.beforeClose === "function") this.beforeOpen(this.show);
+      if (typeof this.beforeClose === 'function') this.beforeOpen(this.show);
       else this.show();
     },
     // 删除
     handleDel(row, index) {
-      this.$emit("handleDel", row, index);
+      this.$emit('handleDel', row, index);
     },
-    //保存
+    // 保存
     handleSave() {
-      this.$refs["tableForm"].validate(valid => {
+      this.$refs.tableForm.validate((valid) => {
         if (valid) {
-          this.$emit("handleSave", this.tableForm, this.hide);
+          this.$emit('handleSave', this.tableForm, this.hide);
         }
       });
     },
-    //更新
+    // 更新
     handleUpdate() {
-      this.$refs["tableForm"].validate(valid => {
+      this.$refs.tableForm.validate((valid) => {
         if (valid) {
           const index = this.tableIndex;
-          this.$emit("handleUpdate", this.tableForm, index, this.hide);
+          this.$emit('handleUpdate', this.tableForm, index, this.hide);
         }
       });
     },
-    //显示表单
+    // 显示表单
     show(cancel) {
       if (cancel !== true) {
         this.boxVisible = true;
       }
     },
-    //隐藏表单
+    // 隐藏表单
     hide(cancel) {
       if (cancel !== false) {
         this.boxVisible = false;
       }
     },
-    //窗口关闭处理事件
+    // 窗口关闭处理事件
     boxhandleClose() {
-      //释放form表单
+      // 释放form表单
       this.tableForm = {};
-      if (typeof this.beforeClose === "function") this.beforeClose(this.hide);
+      if (typeof this.beforeClose === 'function') this.beforeClose(this.hide);
       else this.hide();
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
 
